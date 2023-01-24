@@ -1,0 +1,61 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  ed-tech-project
+
+Transform:
+  - AWS::Serverless-2016-10-31
+
+Globals:
+  Api:
+    Cors:
+      AllowOrigin: "'*'"
+      AllowHeaders: "'*'"
+      AllowCredentials: "'*'"
+      AllowMethods: "'*'"
+  Function:
+    Runtime: nodejs14.x
+    Timeout: 30
+    MemorySize: 128
+    Layers:
+      - !Ref DynamodbQuery
+      - !Ref LambdaHandler
+
+Resources:
+  DynamodbQuery:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: DynamodbQuery
+      Description: layer that containes all the dynamodb query.
+      ContentUri: packages/layers/dynamodb-query/
+      CompatibleRuntimes:
+        - nodejs14.x
+
+  LambdaHandler:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: LambdaHandler
+      Description: layer that containes all the http request helper.
+      ContentUri: packages/layers/lambda-handler/
+      CompatibleRuntimes:
+        - nodejs14.x
+
+  ChimeSdkGetAllUsersByOrgIdLambda:
+    Type: "AWS::Serverless::Function"
+    Properties:
+      Handler: packages/handlers/src/users/getUserListByOrgId.handler
+      Events:
+        Api1:
+          Type: Api
+          Properties:
+            Path: /users/org/{orgId}
+            Method: GET
+      Environment:
+        Variables:
+          USERS_TABLE_NAME: ed-tech-Users-1KR52AY3F4IHO
+          ORG_MAPPINGS_TABLE_NAME: ed-tech-OrgMappings-1APILLG0OHVK3
+          ROLES_TABLE_NAME: ed-tech-Roles-1COZDAW1EXNR8
+
+Outputs:
+  ApiURL:
+    Description: "API endpoint URL for Prod environment"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"

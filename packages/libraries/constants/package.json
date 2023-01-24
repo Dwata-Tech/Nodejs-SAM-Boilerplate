@@ -1,0 +1,11 @@
+{
+  "name": "@learn-space/constants",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "dependencies": {
+    "aws-sdk": "^2.799.0",
+    "winston": "^3.8.2"
+  },
+  "license": "MIT",
+  "packageManager": "yarn@3.3.1"
+}

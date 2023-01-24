@@ -1,0 +1,11 @@
+{
+    "name": "@learn-space/dynamodb-query",
+    "version": "1.0.0",
+    "main": "src/index.js",
+    "description": "layer that containes all the dynamodb query",
+    "dependencies": {
+        "aws-sdk": "^2.1298.0"
+    },
+    "license": "MIT",
+    "packageManager": "yarn@3.3.1"
+}

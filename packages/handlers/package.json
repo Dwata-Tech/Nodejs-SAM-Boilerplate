@@ -1,0 +1,13 @@
+{
+  "name": "@learn-space/handlers",
+  "version": "1.0.0",
+  "dependencies": {
+    "@learn-space/constants": "workspace:packages/libraries/constants",
+    "@learn-space/dynamodb-query": "workspace:packages/layers/dynamodb-query/nodejs",
+    "@learn-space/lambda-handler": "workspace:packages/layers/lambda-handler/nodejs",
+    "aws-sdk": "^2.799.0",
+    "winston": "^3.8.2"
+  },
+  "license": "MIT",
+  "packageManager": "yarn@3.3.1"
+}
